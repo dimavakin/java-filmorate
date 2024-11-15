@@ -59,18 +59,18 @@ public class UserController {
             log.error("Ошибка при обновлении пользователя");
             throw new ValidationException("Id не может быть пустым");
         }
-        if (newUser.getEmail().isBlank() && newUser.getEmail().contains("@")) {
+        if (newUser.getName() == null || newUser.getEmail().isBlank() && newUser.getEmail().contains("@")) {
             log.error("Ошибка при обновлении пользователя");
             throw new ValidationException("Электронная почта не может быть пустой и должна содержать символ @");
         }
-        if (newUser.getLogin().isBlank() && newUser.getLogin().contains(" ")) {
+        if (newUser.getName() == null || newUser.getLogin().isBlank() && newUser.getLogin().contains(" ")) {
             log.error("Ошибка при обновлении пользователя");
             throw new ValidationException("логин не может быть пустым и содержать пробелы");
         }
-        if (newUser.getName().isBlank()) {
+        if (newUser.getName() == null || newUser.getName().isBlank()) {
             newUser.setName(newUser.getLogin());
         }
-        if (newUser.getBirthday().isAfter(LocalDate.now())) {
+        if (newUser.getName() == null || newUser.getBirthday().isAfter(LocalDate.now())) {
             log.error("Ошибка при обновлении пользователя");
             throw new ValidationException("дата рождения не может быть в будущем");
         }
@@ -86,7 +86,7 @@ public class UserController {
             oldUser = oldUser.toBuilder()
                     .name(newUser.getName())
                     .email(newUser.getEmail())
-                    .login(newUser.getEmail())
+                    .login(newUser.getLogin())
                     .birthday(newUser.getBirthday())
                     .build();
             log.error("Поьзователь добавлен");
