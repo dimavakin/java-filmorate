@@ -16,7 +16,7 @@ class FilmControllerTest {
     Film film;
 
     @BeforeEach
-    void BeforeEach() {
+    void beforeEach() {
         film = Film.builder()
                 .id(0L)
                 .name("film")

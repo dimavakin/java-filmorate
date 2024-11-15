@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
-import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.model.User;
 
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ class UserControllerTest {
     User user;
 
     @BeforeEach
-    void BeforeEach() {
+    void beforeEach() {
         user = User.builder()
                 .id(0L)
                 .name("user")
