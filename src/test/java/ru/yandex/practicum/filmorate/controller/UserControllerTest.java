@@ -27,7 +27,7 @@ class UserControllerTest {
     @Test
     public void testCreateMethodWithValidObject() {
         User testUserObj = userController.create(user);
-        assertEquals(testUserObj, user);
+        assertEquals(user,testUserObj);
     }
 
 
@@ -37,7 +37,7 @@ class UserControllerTest {
         try {
             User testUserObj = userController.create(user);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Электронная почта не может быть пустой и должна содержать символ @");
+            assertEquals("Электронная почта не может быть пустой и должна содержать символ @", e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ class UserControllerTest {
         try {
             User testUserObj = userController.create(user);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Логин не может быть пустым и содержать пробелы");
+            assertEquals("Логин не может быть пустым и содержать пробелы", e.getMessage());
         }
     }
 
@@ -57,7 +57,7 @@ class UserControllerTest {
         try {
             User testUserObj = userController.create(user);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Дата рождения не может быть в будущем");
+            assertEquals("Дата рождения не может быть в будущем", e.getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ class UserControllerTest {
         try {
             User testUserObj = userController.create(user);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Дата рождения не может быть в будущем");
+            assertEquals("Дата рождения не может быть в будущем", e.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ class UserControllerTest {
         try {
             userController.update(user);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Id не может быть пустым");
+            assertEquals("Id не может быть пустым", e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ class UserControllerTest {
         try {
             userController.update(user1);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Этот имейл уже используется");
+            assertEquals("Этот имейл уже используется", e.getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ class UserControllerTest {
         try {
             userController.update(user1);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Пользователь с таким id не найден");
+            assertEquals("Пользователь с таким id не найден", e.getMessage());
         }
     }
 

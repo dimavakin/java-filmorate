@@ -12,11 +12,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class FilmControllerTest {
-    FilmController filmController = new FilmController();
+    FilmController filmController;
     Film film;
 
     @BeforeEach
     void beforeEach() {
+        filmController = new FilmController();
         film = Film.builder()
                 .id(0L)
                 .name("film")
@@ -29,18 +30,17 @@ class FilmControllerTest {
     @Test
     public void testCreateMethodWithValidObject() {
         Film testFilmObj = filmController.create(film);
-        assertEquals(testFilmObj, film);
+        assertEquals(film, testFilmObj);
     }
 
     @Test
     public void testCreateMethodWhenDescMoreThan200Chars() {
         String desc = "1".repeat(201);
-        ;
         film.setDescription(desc);
         try {
             filmController.create(film);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Максимальная длина описания — 200 символов");
+            assertEquals("Максимальная длина описания — 200 символов", e.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ class FilmControllerTest {
         try {
             filmController.create(film);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Продолжительность фильма должна быть положительным числом.");
+            assertEquals("Продолжительность фильма должна быть положительным числом.", e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ class FilmControllerTest {
         try {
             filmController.create(film);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Название не может быть пустым");
+            assertEquals("Название не может быть пустым", e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ class FilmControllerTest {
         try {
             filmController.create(film);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Дата релиза — не раньше 28 декабря 1895 года");
+            assertEquals("Дата релиза — не раньше 28 декабря 1895 года", e.getMessage());
         }
     }
 
@@ -81,7 +81,7 @@ class FilmControllerTest {
         try {
             filmController.update(film);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Id не может быть пустым");
+            assertEquals("Id не может быть пустым", e.getMessage());
         }
 
     }
@@ -119,7 +119,7 @@ class FilmControllerTest {
         try {
             filmController.update(film1);
         } catch (ValidationException e) {
-            assertEquals(e.getMessage(), "Фильм с таким id не найден");
+            assertEquals("Фильм с таким id не найден", e.getMessage());
         }
     }
 }
