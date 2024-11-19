@@ -41,6 +41,10 @@ public class FilmController {
 
     @PutMapping
     public Film update(@RequestBody @Valid Film newFilm) {
+        if (newFilm.getId() == null) {
+            log.error("Ошибка при обновлении фильма");
+            throw new ValidationException("Id не может быть пустым");
+        }
         if (newFilm.getReleaseDate().isBefore(LocalDate.of(1895, 12, 28))) {
             throw new ValidationException("Дата релиза — не раньше 28 декабря 1895 года");
         }

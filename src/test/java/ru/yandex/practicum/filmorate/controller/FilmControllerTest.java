@@ -119,7 +119,7 @@ class FilmControllerTest {
         try {
             filmController.update(film1);
         } catch (ValidationException e) {
-            assertEquals("Фильм с таким id не найден", e.getMessage());
+            assertEquals("Id не может быть пустым", e.getMessage());
         }
     }
 }

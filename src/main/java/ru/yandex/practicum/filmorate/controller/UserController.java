@@ -42,6 +42,10 @@ public class UserController {
 
     @PutMapping
     public User update(@RequestBody @Valid User newUser) {
+        if (newUser.getId() == null) {
+            log.error("Ошибка при обновлении фильма");
+            throw new ValidationException("Id не может быть пустым");
+        }
         if (newUser.getName() == null || newUser.getName().isBlank()) {
             newUser.setName(newUser.getLogin());
         }
