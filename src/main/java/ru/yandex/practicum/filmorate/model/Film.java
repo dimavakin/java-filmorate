@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Data;
 
-
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * Film.
@@ -29,4 +29,6 @@ public class Film {
 
     @Positive(message = "Продолжительность фильма должна быть положительным числом")
     private Integer duration;
+
+    private Set<Long> likes;
 }
