@@ -1,8 +1,10 @@
 package ru.yandex.practicum.filmorate.service;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.UserStorage;
 
@@ -16,29 +18,40 @@ import java.util.Set;
 public class UserService {
     private final UserStorage userStorage;
 
-    @Autowired
     public UserService(UserStorage userStorage) {
         this.userStorage = userStorage;
     }
 
+    public Collection<User> findAll() {
+        return userStorage.findAll();
+    }
+
+    public User create(User user) {
+        return userStorage.create(user);
+    }
+
+    public User update(User newUser) {
+        return userStorage.update(newUser);
+    }
+
     public void addFriend(Long id, Long friendId) {
-        userStorage.findOne(id).getFriends().add(friendId);
+        userStorage.findById(id).getFriends().add(friendId);
         log.info("Друг добавлен");
 
-        userStorage.findOne(friendId).getFriends().add(id);
+        userStorage.findById(friendId).getFriends().add(id);
         log.info("Пользователь добавлен к другу");
     }
 
     public void removeFriend(Long id, Long friendId) {
-        userStorage.findOne(id).getFriends().remove(friendId);
+        userStorage.findById(id).getFriends().remove(friendId);
         log.info("Друг удален");
 
-        userStorage.findOne(friendId).getFriends().remove(id);
+        userStorage.findById(friendId).getFriends().remove(id);
         log.info("Пользователь удален у друга");
     }
 
     public Collection<User> findUserFriend(Long id) {
-        Set<Long> friendsOfUser = new HashSet<>(userStorage.findOne(id).getFriends());
+        Set<Long> friendsOfUser = new HashSet<>(userStorage.findById(id).getFriends());
         return userStorage.findAll().stream()
                 .filter(user -> friendsOfUser.contains(user.getId()))
                 .toList();

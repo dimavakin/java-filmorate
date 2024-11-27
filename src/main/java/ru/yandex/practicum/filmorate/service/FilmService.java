@@ -17,23 +17,34 @@ public class FilmService {
     private final FilmStorage filmStorage;
     private final UserStorage userStorage;
 
-    @Autowired
     public FilmService(FilmStorage filmStorage, UserStorage userStorage) {
         this.filmStorage = filmStorage;
         this.userStorage = userStorage;
     }
 
+    public Collection<Film> findAll() {
+        return filmStorage.findAll();
+    }
+
+    public Film create(Film film) {
+        return filmStorage.create(film);
+    }
+
+    public Film update(Film newFilm) {
+        return filmStorage.update(newFilm);
+    }
+
     public void addLike(Long filmId, Long userId) {
-        filmStorage.findOne(filmId).getLikes().add(userId);
+        filmStorage.findById(filmId).getLikes().add(userId);
         log.info("У фильма добавился лайк");
-        userStorage.findOne(userId).getLikedMovies().add(filmId);
+        userStorage.findById(userId).getLikedMovies().add(filmId);
         log.info("У пользователя добавился лайк на фильм");
     }
 
     public void removeLike(Long filmId, Long userId) {
-        filmStorage.findOne(filmId).getLikes().remove(userId);
+        filmStorage.findById(filmId).getLikes().remove(userId);
         log.info("Лайк удален");
-        userStorage.findOne(userId).getLikedMovies().remove(filmId);
+        userStorage.findById(userId).getLikedMovies().remove(filmId);
         log.info("Фильм из лайков удален");
     }
 

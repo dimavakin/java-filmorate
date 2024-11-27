@@ -22,7 +22,7 @@ public class InMemoryFilmStorage implements FilmStorage {
         return films.values();
     }
 
-    public Film findOne(Long id) {
+    public Film findById(Long id) {
         if (!films.containsKey(id)) {
             throw new NotFoundException("Фильм не найден");
         }

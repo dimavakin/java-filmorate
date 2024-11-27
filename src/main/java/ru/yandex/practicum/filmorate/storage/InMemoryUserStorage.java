@@ -23,7 +23,7 @@ public class InMemoryUserStorage implements UserStorage {
         return users.values();
     }
 
-    public User findOne(Long id) {
+    public User findById(Long id) {
         if (!users.containsKey(id)) {
             throw new NotFoundException("Пользователь не найден");
         }
